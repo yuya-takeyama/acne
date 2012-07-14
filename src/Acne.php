@@ -46,7 +46,8 @@ class Acne implements ArrayAccess
         if (!array_key_exists($key, $this->values)) {
             throw new InvalidArgumentException(sprintf('Identifier "%s" is not defined.', $key));
         }
-        return $this->values[$key];
+        $value = $this->values[$key];
+        return $this->isServiceProvider($value) ? call_user_func($value, $this) : $value;
     }
 
     /**
@@ -69,5 +70,10 @@ class Acne implements ArrayAccess
     public function offsetUnset($key)
     {
         unset($this->values[$key]);
+    }
+
+    private function isServiceProvider($value)
+    {
+        return !is_string($value) && is_callable($value);
     }
 }
