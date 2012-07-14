@@ -82,8 +82,22 @@ class Acne_Tests_ContainerTest extends PHPUnit_Framework_TestCase
         $this->assertSame($a, $b);
     }
 
-    public function object_factory()
+    /**
+     * @test
+     */
+    public function service_provider_is_passed_container_as_its_argument()
     {
-        return new stdClass;
+        $this->container['foo'] = 'Foo Value';
+        $this->container['object_factory'] = array($this, 'object_factory');
+        $this->assertEquals('Foo Value', $this->container['object_factory']->foo);
+    }
+
+    public function object_factory($c)
+    {
+        $object = new stdClass;
+        if (isset($c['foo'])) {
+            $object->foo = $c['foo'];
+        }
+        return $object;
     }
 }
