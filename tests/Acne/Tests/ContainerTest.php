@@ -22,6 +22,42 @@ class Acne_Tests_ContainerTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function isset_should_be_true_if_a_value_is_set()
+    {
+        $this->container['key'] = 'value';
+        $this->assertTrue(isset($this->container['key']));
+    }
+
+    /**
+     * @test
+     */
+    public function isset_should_be_true_if_NULL_is_set()
+    {
+        $this->container['key'] = NULL;
+        $this->assertTrue(isset($this->container['key']));
+    }
+
+    /**
+     * @test
+     */
+    public function isset_should_be_false_if_no_value_is_set()
+    {
+        $this->assertFalse(isset($this->container['key']));
+    }
+
+    /**
+     * @test
+     */
+    public function unset_should_remove_a_value()
+    {
+        $this->container['key'] = 'value';
+        unset($this->container['key']);
+        $this->assertFalse(isset($this->container['key']));
+    }
+
+    /**
+     * @test
+     */
     public function an_object_set_into_container_is_shared()
     {
         $object = new stdClass;
