@@ -57,6 +57,15 @@ class Acne_Tests_ContainerTest extends PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @expectedException InvalidArgumentException
+     */
+    public function InvalidArgumentException_should_be_thrown_if_a_key_is_not_set_is_specified()
+    {
+        $foo = $this->container['key_is_not_set'];
+    }
+
+    /**
+     * @test
      */
     public function an_object_set_into_container_is_shared()
     {
