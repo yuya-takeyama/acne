@@ -58,6 +58,18 @@ class AcneTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('array_key_exists', $this->acne['string']);
     }
 
+    /**
+     * @test
+     */
+    public function a_value_returned_by_shared_service_provider_is_same()
+    {
+        $this->acne['object_factory'] = $this->acne->share(array($this, 'object_factory'));
+        $a = $this->acne['object_factory'];
+        $b = $this->acne['object_factory'];
+        $this->assertInstanceOf('stdClass', $b);
+        $this->assertSame($a, $b);
+    }
+
     public function object_factory()
     {
         return new stdClass;

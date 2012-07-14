@@ -1,4 +1,6 @@
 <?php
+require_once dirname(__FILE__) . '/Acne/SharedServiceProvider.php';
+
 /**
  * Acne
  *
@@ -47,7 +49,7 @@ class Acne implements ArrayAccess
             throw new InvalidArgumentException(sprintf('Identifier "%s" is not defined.', $key));
         }
         $value = $this->values[$key];
-        return $this->isServiceProvider($value) ? call_user_func($value, $this) : $value;
+        return Acne::isServiceProvider($value) ? call_user_func($value, $this) : $value;
     }
 
     /**
@@ -72,7 +74,18 @@ class Acne implements ArrayAccess
         unset($this->values[$key]);
     }
 
-    private function isServiceProvider($value)
+    /**
+     * Sets shared service provider.
+     *
+     * @param  callable $provider
+     * @throws InvalidArgumentException
+     */
+    public function share($provider)
+    {
+        return array(new Acne_SharedServiceProvider($provider), 'call');
+    }
+
+    public static function isServiceProvider($value)
     {
         return !is_string($value) && is_callable($value);
     }
