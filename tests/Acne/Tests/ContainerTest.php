@@ -79,8 +79,8 @@ class Acne_Tests_ContainerTest extends PHPUnit_Framework_TestCase
      */
     public function callable_value_should_be_called_as_service_provider()
     {
-        $this->container['object_factory'] = array($this, 'object_factory');
-        $this->assertInstanceOf('stdClass', $this->container['object_factory']);
+        $this->container['object'] = array($this, 'object_provider');
+        $this->assertInstanceOf('stdClass', $this->container['object']);
     }
 
     /**
@@ -88,9 +88,9 @@ class Acne_Tests_ContainerTest extends PHPUnit_Framework_TestCase
      */
     public function a_value_returned_by_service_provider_is_not_same()
     {
-        $this->container['object_factory'] = array($this, 'object_factory');
-        $a = $this->container['object_factory'];
-        $b = $this->container['object_factory'];
+        $this->container['object'] = array($this, 'object_provider');
+        $a = $this->container['object'];
+        $b = $this->container['object'];
         $this->assertNotSame($a, $b);
     }
 
@@ -108,9 +108,9 @@ class Acne_Tests_ContainerTest extends PHPUnit_Framework_TestCase
      */
     public function a_value_returned_by_shared_service_provider_is_same()
     {
-        $this->container['object_factory'] = $this->container->share(array($this, 'object_factory'));
-        $a = $this->container['object_factory'];
-        $b = $this->container['object_factory'];
+        $this->container['object'] = $this->container->share(array($this, 'object_provider'));
+        $a = $this->container['object'];
+        $b = $this->container['object'];
         $this->assertInstanceOf('stdClass', $b);
         $this->assertSame($a, $b);
     }
@@ -120,9 +120,9 @@ class Acne_Tests_ContainerTest extends PHPUnit_Framework_TestCase
      */
     public function shared_service_provider_is_set_if_share_is_called_with_key()
     {
-        $this->container->share('object_factory', array($this, 'object_factory'));
-        $a = $this->container['object_factory'];
-        $b = $this->container['object_factory'];
+        $this->container->share('object', array($this, 'object_provider'));
+        $a = $this->container['object'];
+        $b = $this->container['object'];
         $this->assertInstanceOf('stdClass', $b);
         $this->assertSame($a, $b);
     }
@@ -133,11 +133,11 @@ class Acne_Tests_ContainerTest extends PHPUnit_Framework_TestCase
     public function service_provider_is_passed_container_as_its_argument()
     {
         $this->container['foo'] = 'Foo Value';
-        $this->container['object_factory'] = array($this, 'object_factory');
-        $this->assertEquals('Foo Value', $this->container['object_factory']->foo);
+        $this->container['object'] = array($this, 'object_provider');
+        $this->assertEquals('Foo Value', $this->container['object']->foo);
     }
 
-    public function object_factory($c)
+    public function object_provider($c)
     {
         $object = new stdClass;
         if (isset($c['foo'])) {
