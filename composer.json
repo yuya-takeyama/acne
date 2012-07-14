@@ -1,0 +1,13 @@
+{
+    "name": "acne/acne",
+    "description": "Simple DI Container for PHP < 5.3",
+    "version": "0.0.0",
+    "keywords": ["di container"],
+    "license": "MIT",
+    "require": {
+        "php": ">=5.2.14"
+    },
+    "autoload": {
+        "psr-0": { "Acne": "src" }
+    }
+}
