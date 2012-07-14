@@ -78,8 +78,18 @@ class Acne_Container implements ArrayAccess
      * @param  callable $provider
      * @throws InvalidArgumentException
      */
-    public function share($provider)
+    public function share()
     {
-        return array(new Acne_SharedServiceProvider($provider), 'call');
+        $argCount = func_num_args();
+        if ($argCount === 1) {
+            $provider = func_get_arg(0);
+            return array(new Acne_SharedServiceProvider($provider), 'call');
+        } else if ($argCount === 2) {
+            $key = func_get_arg(0);
+            $provider = func_get_arg(1);
+            $this[$key] = $this->share($provider);
+        } else {
+            throw new InvalidArgumentException(__METHOD__ . ' expects 1 or 2 arguments.');
+        }
     }
 }

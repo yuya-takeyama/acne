@@ -70,6 +70,18 @@ class Acne_Tests_ContainerTest extends PHPUnit_Framework_TestCase
         $this->assertSame($a, $b);
     }
 
+    /**
+     * @test
+     */
+    public function shared_service_provider_is_set_if_share_is_called_with_key()
+    {
+        $this->container->share('object_factory', array($this, 'object_factory'));
+        $a = $this->container['object_factory'];
+        $b = $this->container['object_factory'];
+        $this->assertInstanceOf('stdClass', $b);
+        $this->assertSame($a, $b);
+    }
+
     public function object_factory()
     {
         return new stdClass;
