@@ -1,4 +1,4 @@
 guard 'phpunit', :tests_path => 'tests', :cli => '--colors' do
   watch(%r{^.+Test\.php$})
-  watch('src/Acne.php') {|m| 'tests/AcneTest.php' }
+  watch(%r{src/([^/]*)/(.*).php$}) {|m| "tests/#{m[1]}/Tests/#{m[2]}Test.php" }
 end

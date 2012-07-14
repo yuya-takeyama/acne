@@ -10,6 +10,4 @@ branches:
     - master
     - develop
 
-before_script: sh install-composer.sh
-
 script: phpunit --coverage-text
