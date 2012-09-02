@@ -1,6 +1,4 @@
 <?php
-require_once 'Acne.php';
-
 class Acne_Tests_ContainerTest extends PHPUnit_Framework_TestCase
 {
     private $acne;

@@ -17,7 +17,7 @@ class Acne_SharedServiceProvider
 
     public function __construct($provider)
     {
-        if (!Acne::isServiceProvider($provider)) {
+        if (!Acne_Util::isServiceProvider($provider)) {
             throw new InvalidArgumentException('Service provider should be callable but string.');
         }
         $this->provider = $provider;
