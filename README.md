@@ -85,6 +85,7 @@ $container->share('session', function ($c) {
 Pimple-like way is also available.
 
 ```php
+<?php
 $container['session'] = $container->share(function ($c) {
     return new Session($c['session.cookie_name']);
 });
