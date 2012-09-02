@@ -1,5 +1,14 @@
 <?php
 /**
+ * This file is part of Acne.
+ *
+ * (c) Yuya Takeyama
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+/**
  * Container for Acne.
  *
  * Simple DI container for PHP < 5.2
@@ -47,7 +56,7 @@ class Acne_Container implements ArrayAccess
             throw new InvalidArgumentException(sprintf('Identifier "%s" is not defined.', $key));
         }
         $value = $this->values[$key];
-        return Acne::isServiceProvider($value) ? call_user_func($value, $this) : $value;
+        return Acne_Util::isServiceProvider($value) ? call_user_func($value, $this) : $value;
     }
 
     /**

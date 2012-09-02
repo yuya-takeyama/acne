@@ -16,8 +16,6 @@ Just set  value with key.
 
 ```php
 <?php
-require_once 'Acne.php';
-
 $container = new Acne_Container;
 
 $container['session.cookie_name'] = 'PHPSESSID';
@@ -87,6 +85,7 @@ $container->share('session', function ($c) {
 Pimple-like way is also available.
 
 ```php
+<?php
 $container['session'] = $container->share(function ($c) {
     return new Session($c['session.cookie_name']);
 });
